@@ -2,16 +2,16 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems"></TodoList>
+    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
 
 <script>
-import TodoHeader from "./components/TodoHeader.vue";
-import TodoInput from "./components/TodoInput.vue";
-import TodoList from "./components/TodoList.vue";
-import TodoFooter from "./components/TodoFooter.vue";
+import TodoHeader from './components/TodoHeader.vue';
+import TodoInput from './components/TodoInput.vue';
+import TodoList from './components/TodoList.vue';
+import TodoFooter from './components/TodoFooter.vue';
 
 export default {
   data: function() {
@@ -24,18 +24,20 @@ export default {
       var obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
+    },
+    removeOneItem: function(todoItem, index) {
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
     }
   },
   created: function() {
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
         if (
-          localStorage.key(i) !== "loglevel:webpack-dev-server" &&
-          localStorage.key(i) !== "randid"
+          localStorage.key(i) !== 'loglevel:webpack-dev-server' &&
+          localStorage.key(i) !== 'randid'
         ) {
-          this.todoItems.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
+          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
         }
       }
     }
