@@ -9,9 +9,7 @@
         警告！
         <i class="classModalBtn fas fa-times" @click="showModal = false"></i>
       </h3>
-      <div slot="body">
-        何も入力されていません。
-      </div>
+      <div slot="body">何も入力されていません。</div>
     </Modal>
   </div>
 </template>
@@ -19,14 +17,14 @@
 <script>
 import Modal from './common/Modal.vue';
 export default {
-  data: function() {
+  data() {
     return {
       newTodoItem: '',
       showModal: false
     };
   },
   methods: {
-    addTodo: function() {
+    addTodo() {
       if (this.newTodoItem !== '') {
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
@@ -34,7 +32,7 @@ export default {
         this.showModal = !this.showModal;
       }
     },
-    clearInput: function() {
+    clearInput() {
       this.newTodoItem = '';
     }
   },
